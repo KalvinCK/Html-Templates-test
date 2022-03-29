@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>nav-bar</title>
+  <style rel="stylesheet">
+
+  #root {
+  width: 80%;
+  margin: 0 auto;
+  padding: 0px;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#menu, #list {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #link, #logo {
+    text-decoration: none;
+    color: blueviolet;
+    margin-left: 20px;
+    padding: 5px;
+  }
+  #link:hover {
+      color: whitesmoke;
+  }
+  #logo:hover {
+      color: whitesmoke;
+  }
+  #btn-mobile:hover {
+      color: whitesmoke;
+  }
+  .header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: rgb(26, 26, 26);
+    height: 60px;
+    box-shadow: 0px 0px 10px black;
+    position: sticky;
+    top: 0px;
+
+  }
+  #logo {
+    margin-left: 10px;
+    width: 110px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border-radius: 5px;
+
+  }
+  #img-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+
+  }
+  #img-logo:hover {
+    border-bottom: 1px solid blueviolet;
+  }
+  .menu {
+    display: flex;
+  }
+  #list {
+    margin: 0px 5px;
+  }
+  .menu #list #link #logo{
+    display: flex;
+    padding: 10px;
+  }
+  #btn-mobile {
+    display: none;
+  }
+
+  @media (max-width: 1000px)
+  {
+      #root {
+          width: 100%;
+      }
+  }
+  @media (max-width: 700px)
+  {
+
+    .menu {
+      display: block;
+      position: fixed;
+      width: 100%;
+      top: 60px;
+      right: 0px;
+      height: 0px;
+      background-color: rgb(26, 26, 26);
+      transition: .6s;
+      z-index: 1000;
+      visibility: hidden;
+      overflow-y: hidden;
+
+    }
+    #nav.active .menu
+    {
+      height: calc(100vh - 70px);
+      visibility: visible;
+      overflow-y: auto;
+    }
+    .menu, #list{
+      padding: 1rem 0;
+      margin: 1 0rem;
+    }
+    #list {
+      border-bottom: 1px solid rgba(137, 43, 226, 0.301);
+      text-align: center;
+      margin: 0px 50px;
+    }
+    #btn-mobile
+    {
+      display: flex;
+      padding: .5rem 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: blueviolet;
+    }
+    #hamburguer {
+      border-top: 2px solid;
+      width: 25px;
+      margin-left: 10px;
+      color: blueviolet
+    }
+    #btn-mobile:hover{
+      color: white;
+    }
+    #hamburguer:hover{
+      color:white;
+    }
+    #hamburguer::after, #hamburguer::before {
+      content: '';
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: currentColor;
+      margin-top: 5px;
+      transition: .3s;
+      position: relative;
+    }
+    #nav.active #hamburguer
+    {
+      border-top: transparent;
+    }
+    #nav.active #hamburguer::before
+    {
+      transform: rotate(135deg);
+    }
+    #nav.active #hamburguer::after
+    {
+      transform: rotate(-135deg);
+      top: -7px;
+    }
+  }
+  </style>
+</head>
+
+<body id="root">
+  <header class="header">
+    <a id="logo" href="/"> <img id="img-logo" src="./img/dbs-logo.png"></a>
+    <nav id="nav">
+      <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+        <span id="hamburguer"></span>
+      </button>
+      <ul class="menu" role="menu">
+        <li id="list"><a id="link" href="/">Home</a></li>
+        <li id="list"><a id="link" href="/">Sobre</a></li>
+        <li id="list"><a id="link" href="/">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+</body>
+<script>
+  const btnMobile = document.getElementById('btn-mobile')
+
+  function togleMenu(event) {
+    if (event.type === 'touchstart') event.preventDefault();
+    const nav = document.getElementById('nav');
+    nav.classList.toggle('active');
+    const active = nav.classList.contains('active');
+    event.currentTarget.setAttribute('aria-expanded', active);
+    if (active) {
+      event.currentTarget.setAttribute('aria-label', 'Fechar Menu');
+    } else {
+      event.currentTarget.setAttribute('aria-label', 'Abrir Menu');
+    }
+  }
+
+btnMobile.addEventListener('click', togleMenu);
+btnMobile.addEventListener('touchstart', togleMenu);
+
+
+
+
+</script>
+
+</html>
